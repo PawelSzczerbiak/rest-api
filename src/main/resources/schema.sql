@@ -1,0 +1,16 @@
+-- H2:
+
+CREATE TABLE student(
+  id INTEGER NOT NULL,
+  name VARCHAR(50) NOT NULL,
+  email VARCHAR(50) NOT NULL,
+  PRIMARY KEY(id)
+);
+
+CREATE TABLE book(
+  id INTEGER NOT NULL,
+  title VARCHAR(50) NOT NULL,
+  author VARCHAR(50) NOT NULL,
+  PRIMARY KEY(id),
+  student_id INTEGER REFERENCES student(id)
+);

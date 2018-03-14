@@ -1,21 +1,47 @@
 package pl.szczerbiak.blog.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "course")
 public class Course {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Column(name = "title")
     private String title;
+
     @Column(name = "level")
     private String level;
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "student_id")
-//    @Column(name = "student_id")
-    private Student student;
+
+    // OLD
+
+//    @ManyToOne(cascade = CascadeType.ALL)
+//    @JoinColumn(name = "student_id")
+////    @Column(name = "student_id")
+
+    // NEW
+
+    @JsonBackReference // IMPORTANT: do not display 'student' field
+    @ManyToMany
+    @JoinTable(name = "course_student",
+            joinColumns = @JoinColumn(name = "course_id"),
+            inverseJoinColumns = @JoinColumn(name = "student_id"))
+    private List<Student> student;
+
+    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE,
+            CascadeType.PERSIST, CascadeType.REFRESH}) // not remove !!!
+    @JoinColumn(name = "instructor_id")
+    private Instructor instructor;
+
+    //=========== gett sett constr ==============
 
     public Course() {
     }
@@ -50,12 +76,20 @@ public class Course {
         this.level = level;
     }
 
-    public Student getStudent() {
+    public List<Student> getStudent() {
         return student;
     }
 
-    public void setStudent(Student student) {
+    public void setStudent(List<Student> student) {
         this.student = student;
+    }
+
+    public Instructor getInstructor() {
+        return instructor;
+    }
+
+    public void setInstructor(Instructor instructor) {
+        this.instructor = instructor;
     }
 
     @Override

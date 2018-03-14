@@ -1,0 +1,42 @@
+INSERT INTO students.student(id, name, email) VALUES
+  (1, 'Lukasz', 'lukasz@example.com'),
+  (2, 'Bartek', 'bartek@gmail.com'),
+  (3, 'Alicja', 'alicja@example.com'),
+  (4, 'Natan', 'natan@gmail.com'),
+  (5, 'Marek', 'marek@example.com'),
+  (6, 'Robert', 'robert@gmail.com');
+
+INSERT INTO students.course(id, level, title) VALUES
+(1, 'podstawowy', 'Nauka Programowania Java 8'),
+(2, 'podstawowy', 'Programowanie aplikacji mobilnych'),
+(3, 'srednio-zaawansowany','Bazy danych'),
+(4, 'zaawansowany', 'Programowanie funkcyjne'),
+(5, 'podstawowy', 'Technologie frontendowe'),
+(6,'zaawansowany','Nauka TypeScript');
+
+INSERT INTO course_student VALUES
+(1, 1),
+(1, 2),
+(2, 1),
+(2, 3),
+(4, 4);
+
+INSERT INTO students.student_details VALUES  
+(1, 'dusza', '123654789'),  
+(2, 'nowak', '547854123'),  
+(3, 'smoluch', '698547452'),  
+(4, 'ferens', '23612587'),  
+(5, 'gola', '852555478'),  
+(6, 'nowak', '999874521');
+
+UPDATE students.student SET student_details_id=1 WHERE id=1;
+UPDATE students.student SET student_details_id=2 WHERE id=2;
+UPDATE students.student SET student_details_id=3 WHERE id=3;
+UPDATE students.student SET student_details_id=4 WHERE id=4;
+UPDATE students.student SET student_details_id=5 WHERE id=5;
+UPDATE students.student SET student_details_id=6 WHERE id=6;
+
+INSERT INTO students.instructor(id, name) VALUES
+(1, "Michal"),
+(2, "Jozef"),
+(3, "Wojciech");

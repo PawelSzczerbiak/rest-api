@@ -41,6 +41,12 @@ public class Course {
     @JoinColumn(name = "instructor_id")
     private Instructor instructor;
 
+//    @ManyToMany
+//    @JoinTable(name = "course_instructor",
+//            joinColumns =  @JoinColumn(name = "course_id"),
+//            inverseJoinColumns = @JoinColumn(name = "instructor_id"))
+//    private List<Instructor> instructors;
+
     //=========== gett sett constr ==============
 
     public Course() {
@@ -51,6 +57,12 @@ public class Course {
         this.level = level;
     }
 
+    public Course(String title, String level, List<Student> student, Instructor instructor) {
+        this.title = title;
+        this.level = level;
+        this.student = student;
+        this.instructor = instructor;
+    }
 
     public Long getId() {
         return id;
@@ -91,6 +103,7 @@ public class Course {
     public void setInstructor(Instructor instructor) {
         this.instructor = instructor;
     }
+
 
     @Override
     public String toString() {

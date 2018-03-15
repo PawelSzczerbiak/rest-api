@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Update student</title>
+</head>
+<body>
+
+    <div class="container">
+
+        <h3>Update student phone number</h3>
+
+        <form th:action="@{/students/form/update/phone}" method="post">
+            <input th:type="number" th:name="id" placeholder="Id">
+            <br>
+            <input th:type="text" th:name="phoneNumber" placeholder="Phone number">
+            <br>
+            <button th:type="submit">Update</button>
+        </form>
+
+    </div>
+
+</body>
+</html>

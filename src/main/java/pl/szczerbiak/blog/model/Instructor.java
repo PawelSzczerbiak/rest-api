@@ -2,12 +2,14 @@ package pl.szczerbiak.blog.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.Set;
 
+//@Data // Lombok: gett, sett and Object method (toString, hashCode)
+//@AllArgsConstructor // default access - PUBLIC
+//@NoArgsConstructor
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @Entity
 @Table(name = "instructor")
@@ -24,16 +26,26 @@ public class Instructor {
     @OneToMany(mappedBy = "instructor",
             cascade = {CascadeType.DETACH, CascadeType.MERGE,
                     CascadeType.PERSIST, CascadeType.REFRESH}) // not remove !!!
-    private List<Course> courses;
+    private Set<Course> courses;
+
+//    @ManyToMany
+//    @JoinTable(name = "course_instructor",
+//            joinColumns = @JoinColumn(name = "instructor_id"),
+//            inverseJoinColumns = @JoinColumn(name = "course_id"))
+//    private List<Course> courses;
 
     //=========== gett sett constr ==============
 
     public Instructor() {
     }
 
-    public Instructor(String name, List<Course> courses) {
+    public Instructor(String name) {
         this.name = name;
-        this.courses = courses;
+    }
+
+    public Instructor(String name, Set<Course> courseSet) {
+        this.name = name;
+        this.courses = courseSet;
     }
 
     public Long getId() {
@@ -52,11 +64,11 @@ public class Instructor {
         this.name = name;
     }
 
-    public List<Course> getCourses() {
+    public Set<Course> getCourses() {
         return courses;
     }
 
-    public void setCourses(List<Course> courses) {
+    public void setCourses(Set<Course> courses) {
         this.courses = courses;
     }
 }

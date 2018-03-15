@@ -22,9 +22,8 @@ public class StudentController {
     }
 
     @PostMapping("/students/add") // another endpoint
-    public Student addNewStudent(
-            @ModelAttribute Student student,
-            @ModelAttribute StudentDetails studentDetails) {
+    public Student addNewStudent(@ModelAttribute Student student,
+                                 @ModelAttribute StudentDetails studentDetails) {
 
         Student result = new Student(
                 student.getName(),
@@ -36,15 +35,15 @@ public class StudentController {
     }
 
     @PutMapping("/students/update/{id}")
-    public String updateStudentById(
-            @ModelAttribute Student student,
-            @ModelAttribute StudentDetails studentDetails,
-            @PathVariable("id") Long id) {
+    public String updateStudentById(@ModelAttribute Student student,
+                                    @ModelAttribute StudentDetails studentDetails,
+                                    @PathVariable("id") Long id) {
 
         Optional<Student> resultOptional = studentRepository.findById(id);
 
         resultOptional.ifPresent(result -> {
-            if (student.getEmail() != null)
+//        result = resultOptional.get(); // TODO: safe?
+            if (student.getEmail() != null) // TODO: better method?
                 result.setEmail(student.getEmail());
             if (studentDetails.getLastname() != null)
                 result.getStudentDetails().setLastname(studentDetails.getLastname());

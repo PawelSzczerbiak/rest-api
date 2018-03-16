@@ -10,6 +10,7 @@ import pl.szczerbiak.blog.repositories.InstructorRepository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/api")
@@ -70,7 +71,7 @@ public class CourseController {
 
         courseOptional.ifPresent(result -> { // TODO: second ifPresent
             Optional<Instructor> instructorOptional = instructorRepository.findById(idInstructor);
-            List<Instructor> instructors = courseOptional.get().getInstructors();
+            Set<Instructor> instructors = courseOptional.get().getInstructors();
             instructors.add(instructorOptional.get());
             result.setInstructors(instructors);
             courseRepository.save(result);
@@ -79,7 +80,13 @@ public class CourseController {
         return "Course has new instructor!";
     }*/
 
-    // OneToMany
+    // ManyToOne
+
+    // It is enough to set instructor to course like below i.e. use only one controller.
+    // OneToMany mapping in InstructorController, adding course to instructor,
+    // does not work properly i.e. does not set instructor to course.
+    // One to other hand, ManyToMany mapping in both controllers works well
+    // because it exploits additional table.
 
     @GetMapping("/courses/{idCourse}/setinstructor/{idInstructor}")
     public String setInstructorToCourse(@PathVariable("idInstructor") Long idInstructor,

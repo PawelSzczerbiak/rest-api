@@ -1,6 +1,6 @@
 -- H2:
 
-INSERT INTO student VALUES
+INSERT INTO students VALUES
   (1, 'Lech', 'lech@example.com'),
   (2, 'Mariusz', 'mariusz@example.com');
 

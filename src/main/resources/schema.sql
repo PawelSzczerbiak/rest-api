@@ -1,6 +1,6 @@
 -- H2:
 
-CREATE TABLE student(
+CREATE TABLE students(
   id INTEGER NOT NULL,
   name VARCHAR(50) NOT NULL,
   email VARCHAR(50) NOT NULL,
@@ -12,5 +12,5 @@ CREATE TABLE book(
   title VARCHAR(50) NOT NULL,
   author VARCHAR(50) NOT NULL,
   PRIMARY KEY(id),
-  student_id INTEGER REFERENCES student(id)
+  student_id INTEGER REFERENCES students(id)
 );

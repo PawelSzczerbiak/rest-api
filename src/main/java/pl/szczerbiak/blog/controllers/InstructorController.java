@@ -9,6 +9,7 @@ import pl.szczerbiak.blog.repositories.InstructorRepository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/api")
@@ -25,7 +26,7 @@ public class InstructorController {
         return instructorRepository.findAll();
     }
 
-    // ManyToMany
+    // ManyToMany ( = OneToMany in this case)
 
 /*    @GetMapping("/instructors/{idInstructor}/addcourse/{idCourse}")
     public String addCourseToInstructor(@PathVariable("idInstructor") Long idInstructor,
@@ -35,7 +36,7 @@ public class InstructorController {
 
         instructorOptional.ifPresent(result -> { // TODO: second ifPresent
             Optional<Course> courseOptional = courseRepository.findById(idCourse);
-            List<Course> courses = instructorOptional.get().getCourses();
+            Set<Course> courses = instructorOptional.get().getCourses();
             courses.add(courseOptional.get());
             result.setCourses(courses);
             instructorRepository.save(result);
@@ -43,5 +44,6 @@ public class InstructorController {
 
         return "Instructor has new course!";
     }*/
+
 
 }

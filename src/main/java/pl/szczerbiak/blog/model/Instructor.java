@@ -28,11 +28,12 @@ public class Instructor {
                     CascadeType.PERSIST, CascadeType.REFRESH}) // not remove !!!
     private Set<Course> courses;
 
+//    @JsonBackReference
 //    @ManyToMany
 //    @JoinTable(name = "course_instructor",
 //            joinColumns = @JoinColumn(name = "instructor_id"),
 //            inverseJoinColumns = @JoinColumn(name = "course_id"))
-//    private List<Course> courses;
+//    private Set<Course> courses;
 
     //=========== gett sett constr ==============
 

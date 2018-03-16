@@ -1,11 +1,9 @@
 package pl.szczerbiak.blog.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "course")
@@ -29,12 +27,12 @@ public class Course {
 
     // NEW
 
-    @JsonBackReference // IMPORTANT: do not display 'student' field
+    @JsonBackReference // IMPORTANT: do not display 'students' field
     @ManyToMany
     @JoinTable(name = "course_student",
             joinColumns = @JoinColumn(name = "course_id"),
             inverseJoinColumns = @JoinColumn(name = "student_id"))
-    private List<Student> student;
+    private Set<Student> students;
 
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE,
             CascadeType.PERSIST, CascadeType.REFRESH}) // not remove !!!
@@ -45,7 +43,7 @@ public class Course {
 //    @JoinTable(name = "course_instructor",
 //            joinColumns =  @JoinColumn(name = "course_id"),
 //            inverseJoinColumns = @JoinColumn(name = "instructor_id"))
-//    private List<Instructor> instructors;
+//    private Set<Instructor> instructors;
 
     //=========== gett sett constr ==============
 
@@ -57,10 +55,17 @@ public class Course {
         this.level = level;
     }
 
-    public Course(String title, String level, List<Student> student, Instructor instructor) {
+//    public Course(String title, String level, Set<Student> students, Set<Instructor> instructors) {
+//        this.title = title;
+//        this.level = level;
+//        this.students = students;
+//        this.instructors = instructors;
+//    }
+
+        public Course(String title, String level, Set<Student> students, Instructor instructor) {
         this.title = title;
         this.level = level;
-        this.student = student;
+        this.students = students;
         this.instructor = instructor;
     }
 
@@ -88,13 +93,21 @@ public class Course {
         this.level = level;
     }
 
-    public List<Student> getStudent() {
-        return student;
+    public Set<Student> getStudents() {
+        return students;
     }
 
-    public void setStudent(List<Student> student) {
-        this.student = student;
+    public void setStudents(Set<Student> students) {
+        this.students = students;
     }
+
+//    public Set<Instructor> getInstructors() {
+//        return instructors;
+//    }
+//
+//    public void setInstructors(Set<Instructor> instructors) {
+//        this.instructors = instructors;
+//    }
 
     public Instructor getInstructor() {
         return instructor;
@@ -103,7 +116,6 @@ public class Course {
     public void setInstructor(Instructor instructor) {
         this.instructor = instructor;
     }
-
 
     @Override
     public String toString() {
